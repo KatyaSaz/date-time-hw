@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 public class DateTimeExercise {
 
@@ -74,20 +75,32 @@ public class DateTimeExercise {
         return null;
     }
 
+    private static List<ZoneId> getZonesByCondition(boolean condition, List<ZoneId> inputZones) {
+        List<ZoneId> zones = new ArrayList<>();
+        for (ZoneId zoneId : inputZones) {
+            if ((condition) ?
+                    TimeZone.getTimeZone(zoneId).useDaylightTime() :
+                    !TimeZone.getTimeZone(zoneId).useDaylightTime()) {
+                zones.add(zoneId);
+            }
+        }
+        return zones;
+    }
+
     /*
     Из списка тайм-зон найти зоны, где есть перевод часов.
     Проверяем от 1900 года до сегодня.
      */
-    List<ZoneId> zonesAlwaysClockShift(List<ZoneId> zones) {
-        return null;
+    public static List<ZoneId> zonesAlwaysClockShift(List<ZoneId> zones) {
+        return getZonesByCondition(true, zones);
     }
 
     /*
     Из списка тайм-зон найти зоны, где нет перевода часов.
     Проверяем от 1900 года до сегодня.
      */
-    List<ZoneId> zonesNeverClockShift(List<ZoneId> zones) {
-        return null;
+    public static List<ZoneId> zonesNeverClockShift(List<ZoneId> zones) {
+        return getZonesByCondition(false, zones);
     }
 
     /*
