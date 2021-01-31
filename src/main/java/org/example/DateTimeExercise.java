@@ -54,8 +54,16 @@ public class DateTimeExercise {
     Список годов, когда заданный день рождения попадает на субботу. От даты рождения до сегодня.
     Список годов упорядочен по возрастанию.
      */
-    List<Year> birthdaysOnSaturdays(LocalDate birthday) {
-        return null;
+    public static List<Year> birthdaysOnSaturdays(LocalDate birthday) {
+        List<Year> birthdaySaturday = new ArrayList<>();
+        LocalDate end = LocalDate.now();
+        while (birthday.getYear() < end.getYear()) {
+            if (birthday.getDayOfWeek() == DayOfWeek.SATURDAY) {
+                birthdaySaturday.add(Year.of(birthday.getYear()));
+            }
+            birthday = birthday.plusYears(1);
+        }
+        return birthdaySaturday;
     }
 
     /*
