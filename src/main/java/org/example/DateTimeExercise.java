@@ -78,9 +78,7 @@ public class DateTimeExercise {
     private static List<ZoneId> getZonesByCondition(boolean condition, List<ZoneId> inputZones) {
         List<ZoneId> zones = new ArrayList<>();
         for (ZoneId zoneId : inputZones) {
-            if ((condition) ?
-                    TimeZone.getTimeZone(zoneId).useDaylightTime() :
-                    !TimeZone.getTimeZone(zoneId).useDaylightTime()) {
+            if (condition == TimeZone.getTimeZone(zoneId).useDaylightTime()) {
                 zones.add(zoneId);
             }
         }
