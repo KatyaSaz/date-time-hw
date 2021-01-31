@@ -1,6 +1,8 @@
 package org.example;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DateTimeExercise {
@@ -9,8 +11,20 @@ public class DateTimeExercise {
     Список месяцев, в которых есть пятница 13-е. От 2000 года до сегодня.
     String имеет формат “MMM yyyy”, например “Jul 2013”, список упорядочен по возрастанию дат.
      */
-    List<String> fridays13(){
-        return null;
+    public static List<String> fridays13() {
+        List<String> badDays = new ArrayList<>();
+        LocalDate start = LocalDate.of(2000, 01,01);
+        LocalDate end = LocalDate.now();
+        while (start.getYear()<end.getYear()){
+            for(int month=1; month<=Month.values().length; month++){
+                LocalDate date = LocalDate.of(start.getYear(), month, 13);
+                if (date.getDayOfWeek() == DayOfWeek.FRIDAY) {
+                    badDays.add(date.format(DateTimeFormatter.ofPattern("MMM yyyy")));
+                }
+            }
+            start = start.plusYears(1);
+        }
+        return badDays;
     }
 
     /*
