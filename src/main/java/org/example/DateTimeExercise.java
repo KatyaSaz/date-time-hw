@@ -2,6 +2,8 @@ package org.example;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +73,19 @@ public class DateTimeExercise {
      Для заданного года найти дни, когда количество часов не равно 24.
      Cписок по возрастанию.
      */
-    List<MonthDay> daysNotWith24Hours(Year year) {
-        return null;
+    public static List<MonthDay> daysNotWith24Hours(Year year) {
+        List<MonthDay> timeNot24 = new ArrayList<>();
+        ZonedDateTime date = ZonedDateTime.of(
+                LocalDateTime.of(year.get(ChronoField.YEAR), 01, 01, 00, 00),
+                TimeZone.getDefault().toZoneId());
+        for (int i = 1; i < year.length(); i++) {
+            if (ChronoUnit.HOURS.between(date, date.plusDays(1)) != 24) {
+                timeNot24.add(MonthDay.of(date.getMonth(), date.getDayOfMonth()));
+            }
+            date = date.plusDays(1);
+        }
+
+        return timeNot24;
     }
 
     private static List<ZoneId> getZonesByCondition(boolean condition, List<ZoneId> inputZones) {

@@ -16,12 +16,14 @@ import java.util.*;
 public class DateTimeExerciseTest {
 
     private final LocalDate BIRTHDAY = LocalDate.of(1999, 12, 07);
+    private final Year YEAR_TEST = Year.of(1999);
 
     private List<String> fridays13;
     private List<YearMonth> sundaysEnd;
     private List<Year> birtdaySaturday;
     private List<ZoneId> clockShift;
     private List<ZoneId> clockNotShift;
+    private List<MonthDay> not24hours;
 
     @Before
     public void init() {
@@ -31,6 +33,7 @@ public class DateTimeExerciseTest {
         List<ZoneId> zones = getListOfAllTimeZones();
         clockShift = DateTimeExercise.zonesAlwaysClockShift(zones);
         clockNotShift = DateTimeExercise.zonesNeverClockShift(zones);
+        not24hours = DateTimeExercise.daysNotWith24Hours(YEAR_TEST);
     }
 
     private List<ZoneId> getListOfAllTimeZones() {
@@ -116,5 +119,16 @@ public class DateTimeExerciseTest {
     public void checkZonesNeverClockShiftIsAmountCorrect(){
         final int AMOUNT_CLOCK_NEVER_SHIFT = 47;
         Assert.assertEquals(AMOUNT_CLOCK_NEVER_SHIFT, clockNotShift.size());
+    }
+
+    @Test
+    public void daysNotWith24HoursIsNotNull(){
+        Assert.assertNotNull(not24hours);
+    }
+
+    @Test
+    public void daysNotWith24HoursIsAmountCorrect(){
+        final int AMOUNT_DAYS_WHERE_HOURS_NOT_24 = 2;
+        Assert.assertEquals(AMOUNT_DAYS_WHERE_HOURS_NOT_24, not24hours.size());
     }
 }
