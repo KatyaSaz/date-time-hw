@@ -16,7 +16,7 @@ import java.util.*;
 public class DateTimeExerciseTest {
 
     private final LocalDate BIRTHDAY = LocalDate.of(1999, 12, 07);
-    private final Year YEAR_TEST = Year.of(1999);
+    private final Year YEAR_TEST = Year.of(2005);
 
     private List<String> fridays13;
     private List<YearMonth> sundaysEnd;
