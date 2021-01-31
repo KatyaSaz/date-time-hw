@@ -2,10 +2,13 @@ package org.example;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DateTimeExercise {
+
+    private static final LocalDate DATE_START_FROM_2000 = LocalDate.of(2000, 01, 01);
 
     /*
     Список месяцев, в которых есть пятница 13-е. От 2000 года до сегодня.
@@ -13,10 +16,10 @@ public class DateTimeExercise {
      */
     public static List<String> fridays13() {
         List<String> badDays = new ArrayList<>();
-        LocalDate start = LocalDate.of(2000, 01,01);
+        LocalDate start = DATE_START_FROM_2000;
         LocalDate end = LocalDate.now();
-        while (start.getYear()<end.getYear()){
-            for(int month=1; month<=Month.values().length; month++){
+        while (start.getYear() < end.getYear()) {
+            for (int month = 1; month <= Month.values().length; month++) {
                 LocalDate date = LocalDate.of(start.getYear(), month, 13);
                 if (date.getDayOfWeek() == DayOfWeek.FRIDAY) {
                     badDays.add(date.format(DateTimeFormatter.ofPattern("MMM yyyy")));
@@ -31,15 +34,27 @@ public class DateTimeExercise {
     Список месяцев, которые заканчиваются в воскресенье. От 2000 года до cегодня.
     Cписок упорядочен по возрастанию дат.
      */
-    List<YearMonth> endOnSundays(){
-        return null;
+    public static List<YearMonth> endOnSundays() {
+        List<YearMonth> lastDaysOfMoth = new ArrayList<>();
+        LocalDate start = DATE_START_FROM_2000;
+        LocalDate end = LocalDate.now();
+        while (start.getYear() < end.getYear()) {
+            for (int month = 1; month <= Month.values().length; month++) {
+                LocalDate lastDay = LocalDate.of(start.getYear(), month, start.getDayOfMonth()).with(TemporalAdjusters.lastDayOfMonth());
+                if (lastDay.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    lastDaysOfMoth.add(YearMonth.of(start.getYear(), month));
+                }
+            }
+            start = start.plusYears(1);
+        }
+        return lastDaysOfMoth;
     }
 
     /*
     Список годов, когда заданный день рождения попадает на субботу. От даты рождения до сегодня.
     Список годов упорядочен по возрастанию.
      */
-    List<Year> birthdaysOnSaturdays(LocalDate birthday){
+    List<Year> birthdaysOnSaturdays(LocalDate birthday) {
         return null;
     }
 
@@ -47,7 +62,7 @@ public class DateTimeExercise {
      Для заданного года найти дни, когда количество часов не равно 24.
      Cписок по возрастанию.
      */
-    List<MonthDay> daysNotWith24Hours(Year year){
+    List<MonthDay> daysNotWith24Hours(Year year) {
         return null;
     }
 
@@ -55,7 +70,7 @@ public class DateTimeExercise {
     Из списка тайм-зон найти зоны, где есть перевод часов.
     Проверяем от 1900 года до сегодня.
      */
-    List<ZoneId> zonesAlwaysClockShift(List<ZoneId> zones){
+    List<ZoneId> zonesAlwaysClockShift(List<ZoneId> zones) {
         return null;
     }
 
@@ -63,7 +78,7 @@ public class DateTimeExercise {
     Из списка тайм-зон найти зоны, где нет перевода часов.
     Проверяем от 1900 года до сегодня.
      */
-    List<ZoneId> zonesNeverClockShift(List<ZoneId> zones){
+    List<ZoneId> zonesNeverClockShift(List<ZoneId> zones) {
         return null;
     }
 
@@ -71,7 +86,7 @@ public class DateTimeExercise {
     А также зоны, где в одни годы был перевод часов, в другие - нет.
     Проверяем от 1900 года до сегодня.
      */
-    List<ZoneId> zonesChangedClockShiftRules(List<ZoneId> zones){
+    List<ZoneId> zonesChangedClockShiftRules(List<ZoneId> zones) {
         return null;
     }
 }
